@@ -1,4 +1,17 @@
-<div class="WCSR_MainContainer"><?php if (!defined('ALREADY_CALLED_WCSR_55')) : ?><script type="text/javascript">
+<div class="WCSR_MainContainer"><?php
+ if (!defined('ALREADY_CALLED_WCSR_55')) : 
+
+
+
+
+	if( 
+		wp_script_is( 'jquery.cycle', 'registered' ) || !wp_script_is( 'jquery.cycle', 'enqueued' ) || !wp_script_is( 'jquery.cycle', 'done' ) ||
+		wp_script_is( 'jquery-cycle', 'registered' ) || !wp_script_is( 'jquery-cycle', 'enqueued' ) || !wp_script_is( 'jquery-cycle', 'done' )
+	) {
+		echo '<script>alert("Warning. You seem to be using jQuery-cycle plugin. However, a plugin '.basename(__DIR__).'/'.basename(__FILE__).' is using jqeury-cycle plugin too, an older version, and ensure, that there wont be a conflict, and everything works correctly. \r\nAfter checking, if you will see, that everything works correctly, then hide this alert window forever,by accessing this page again, just in the URL address add the parameter :\r\n\r\n'.home_url().'?remove_jquery_cycle_warning\r\n\r\nAnd this alert message will never happen again... or edit this simple plugin file")</script>';
+	}
+	echo '<script type="text/javascript" src="'.plugin_dir_url(__FILE__).'/jquery.cycle.all.2.72.js"></script>';
+?><script type="text/javascript">
 // Tutorial by http://ooyes.net/
 
 $slideshow = {context: false,tabs: false,timeout: 8000,	fx: 'fade',  slideSpeed: 900,tabSpeed: 900,     
