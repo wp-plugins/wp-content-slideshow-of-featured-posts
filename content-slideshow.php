@@ -18,7 +18,7 @@ $slideshow = {context: false,tabs: false,timeout: 8000,	fx: 'fade',  slideSpeed:
     init: function() {
         this.context = jQuery('#content-slideshow');  this.tabs = jQuery('ul.slideshow-nav li', this.context);  this.tabs.remove(); this.startSlideshow();
     },
-     
+    
     startSlideshow: function() {
         jQuery('div.content_slideshow > ul', $slideshow.context).cycle({
             fx: $slideshow.fx,
@@ -71,10 +71,11 @@ window.onload=My_WCSR_clicker();
 </script>
 
 <style>
+.WCSR_MainContainer{clear: both;}
 #content-slideshow {width: <?php $width = get_option('content_width'); if(!empty($width)) {echo $width;} else {echo "100%";}?>;
 padding:0px !important;background-color: #<?php $bg = get_option('content_bg'); if(!empty($bg)) {echo $bg;} else {echo "FFF";}?>;
 height: <?php $height = get_option('content_height'); if(!empty($height)) {echo $height;} else {echo "310px";}?>;
-overflow:hidden;border: 9px solid #CCC;position: relative; margin:0px;}
+overflow:hidden;border: 9px solid #CCC;position: relative;border-radius: 4px; margin:0px;}
 #content-slideshow ul {background:transparent !important;margin: 0 !important;border: none !important;padding: 0 !important;list-style-type: none !important;position: relative;}          
 #content-slideshow .content_slideshow ul {float:left;overflow: hidden;width:100%;margin: 0px !important;padding: 0px !important;height: 300px;position: relative;}
 #content-slideshow .content_slideshow ul li {overflow: hidden;display:none; width:100%; height: 278px !important;display:block;position:relative;top: 0px !important;left: 0px !important;float: left;margin: 0px !important;padding: 10px !important;z-index:1;border:solid 1px transparent;}

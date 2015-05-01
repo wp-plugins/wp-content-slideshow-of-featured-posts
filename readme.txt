@@ -1,4 +1,4 @@
-=== WP Content Slideshow - REVISITED ===
+=== Plugin Name ===
 Contributors: IWEBIX, Dennis Nissle, Uzair Hayat, selnomeria
 Donate link: ##https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PTWKHUUTVXCRQ
 Tags: slideshow, content slideshow, slideshow, wp slideshow, featured content slideshow, gallery, content gallery, wordpress gallery
@@ -26,6 +26,7 @@ You can use shortcodes too.
 == Screenshots ==
 
 1. This is how WP-Content Slideshow Reborn might look in your theme.
+2. Admin section.
 
 == Changelog ==
 

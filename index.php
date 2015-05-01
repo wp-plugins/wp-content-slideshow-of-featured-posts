@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WP Content Slideshow - REVISITED
+Plugin Name: WP Content Slideshow Revisited
 Plugin URI: http://www.uziiuzair.net
 Description: A modified version of the modified <a href="http://wordpress.org/plugins/wp-content-slideshow-reborn/">WP Content Slideshow Reborn</a>
 Version: 1.0
@@ -45,6 +45,7 @@ function REVISITEDD_save_content($post_id){
 		}
 	}
 }
+
 
 
 function REVISITEDD_insert_content($atts, $content = null) {
