@@ -5,7 +5,7 @@ $slideshow = {context: false,tabs: false,timeout: 8000,	fx: 'fade',  slideSpeed:
     init: function() {
         this.context = jQuery('#content-slideshow');  this.tabs = jQuery('ul.slideshow-nav li', this.context);  this.tabs.remove(); this.startSlideshow();
     },
-    
+     
     startSlideshow: function() {
         jQuery('div.content_slideshow > ul', $slideshow.context).cycle({
             fx: $slideshow.fx,
