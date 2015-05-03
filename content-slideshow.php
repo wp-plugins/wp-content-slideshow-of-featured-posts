@@ -63,37 +63,37 @@ function My_WCSR_clicker(){
 
 <style>
 .wcsr_maincontainer{clear: both;}
-.wcsr_single  {width: <?php $width = get_option('wcsr_content_width'); if(!empty($width)) {echo $width;} else {echo "100%";}?>;
+.wcsr_single {width: <?php $width = get_option('wcsr_content_width'); if(!empty($width)) {echo $width;} else {echo "100%";}?>;
 padding:0px !important;background-color: #<?php $bg = get_option('wcsr_content_bg'); if(!empty($bg)) {echo $bg;} else {echo "FFF";}?>;
 height: <?php $height = get_option('wcsr_content_height'); if(!empty($height)) {echo $height;} else {echo "310px";}?>;
 overflow:hidden;border: 9px solid #CCC;position: relative;border-radius: 4px; margin:0px;}
-.wcsr_single  ul {background:transparent !important;margin: 0 !important;border: none !important;padding: 0 !important;list-style-type: none !important;position: relative;}          
-.wcsr_single  .wcsr_big_area ul {float:left;overflow: hidden;width:100%;margin: 0px !important;padding: 0px !important;height: 300px;position: relative;}
-.wcsr_single  .wcsr_big_area ul li {overflow: hidden;display:none; width:100%; height: 278px !important;display:block;position:relative;top: 0px !important;left: 0px !important;float: left;margin: 0px !important;padding: 10px !important;z-index:1;border:solid 1px transparent;}
-.wcsr_single  .wcsr_big_area ul li .span6 img {width: 40px;height: 40px;float: left;}
-.wcsr_single  .wcsr_big_area{	float:left;	width:69.5%;}
-.wcsr_single   ul.wcsr_navig_window {height: 100%; xx: <?php $height = get_option('wcsr_content_height'); if(!empty($height)) {echo $height;} else {echo "250px";}?>;width: 29.5%; xx:<?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270px";}?>;margin:0;padding: 0;float:left;overflow:auto;}
+.wcsr_single ul {background:transparent !important;margin: 0 !important;border: none !important;padding: 0 !important;list-style-type: none !important;position: relative;}          
+.wcsr_single .wcsr_big_area ul {float:left;overflow: hidden;width:100%;margin: 0px !important;padding: 0px !important;height: 300px;position: relative;}
+.wcsr_single .wcsr_big_area ul li {overflow: hidden;display:none; width:100%; height: 278px !important;display:block;position:relative;top: 0px !important;left: 0px !important;float: left;margin: 0px !important;padding: 10px !important;z-index:1;border:solid 1px transparent;}
+.wcsr_single .wcsr_big_area ul li .span6 img {width: 40px;height: 40px;float: left;}
+.wcsr_single .wcsr_big_area{	float:left;	width:69.5%;}
+.wcsr_single ul.wcsr_navig_window {height: 100%; xx: <?php $height = get_option('wcsr_content_height'); if(!empty($height)) {echo $height;} else {echo "250px";}?>;width: 29.5%; xx:<?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270px";}?>;margin:0;padding: 0;float:right; overflow:auto;}
 .wcsr_maincontainer .slideme {font-size: 9px;float: right;}
 .wcsr_maincontainer .slideme a {font-size: 8px;text-decoration: none;color: #CCC;}
-.wcsr_single  .wcsr_navig_window li {background-color: #<?php $content_nav_bg = get_option('wcsr_content_nav_bg'); if(!empty($content_nav_bg)) {echo $content_nav_bg;} else {echo "EEE";}?>; display:block;margin:0; padding: 2px 2px 2px 2px; list-style-type:none;display:block; height:73px;  width:100%; xx:<?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270";}?>px; display:block; border: 1px solid; overflow: hidden; float: left;}
-.wcsr_single  .wcsr_navig_window li a {height: 100%;xxheight:<?php $content_nav_height = get_option('wcsr_content_nav_height'); if(!empty($content_nav_height)) {echo $content_nav_height;} else {echo "62";}?>px;  width: 100%; xxwidth: <?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270";}?>px; display:block; margin:0; padding:0px; list-style-type:none; display:block; color:#<?php $content_nav_color = get_option('wcsr_content_nav_color'); if(!empty($content_nav_color)) {echo $content_nav_color;} else {echo "333";}?>;overflow:hidden;font-size: 14px; font-weight: bold; line-height:1.3em;}
-.wcsr_single  .wcsr_navig_window li.on a {background-color: #<?php $nav_bg_active_color = get_option('wcsr_content_nav_active_bg'); if(!empty($nav_bg_active_color)) {echo $nav_bg_active_color;} else {echo "CCC";}?>;color:#fff;}
-.wcsr_single  .wcsr_navig_window li a:hover,.wcsr_single  .wcsr_navig_window li a:active {color:#<?php $nav_color = get_option('wcsr_content_nav_active_color'); if(!empty($nav_color)) {echo $nav_color;} else {echo "FFF";}?>;background-color: #<?php $nav_bg_active_color = get_option('wcsr_content_nav_active_bg'); if(!empty($nav_bg_active_color)) {echo $nav_bg_active_color;} else {echo "CCC";}?>;}
+.wcsr_single .wcsr_navig_window li {background-color: #<?php $content_nav_bg = get_option('wcsr_content_nav_bg'); if(!empty($content_nav_bg)) {echo $content_nav_bg;} else {echo "EEE";}?>; display:block;margin:0; padding: 2px 2px 2px 2px; list-style-type:none;display:block; height:73px;  width:100%; xx:<?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270";}?>px; display:block; border: 1px solid; overflow: hidden; float: left;}
+.wcsr_single .wcsr_navig_window li a {height: 100%;xxheight:<?php $content_nav_height = get_option('wcsr_content_nav_height'); if(!empty($content_nav_height)) {echo $content_nav_height;} else {echo "62";}?>px;  width: 100%; xxwidth: <?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270";}?>px; display:block; margin:0; padding:0px; list-style-type:none; display:block; color:#<?php $content_nav_color = get_option('wcsr_content_nav_color'); if(!empty($content_nav_color)) {echo $content_nav_color;} else {echo "333";}?>;overflow:hidden;font-size: 14px; font-weight: bold; line-height:1.3em;}
+.wcsr_single .wcsr_navig_window li.on a {background-color: #<?php $nav_bg_active_color = get_option('wcsr_content_nav_active_bg'); if(!empty($nav_bg_active_color)) {echo $nav_bg_active_color;} else {echo "CCC";}?>;color:#fff;}
+.wcsr_single .wcsr_navig_window li a:hover,.wcsr_single .wcsr_navig_window li a:active {color:#<?php $nav_color = get_option('wcsr_content_nav_active_color'); if(!empty($nav_color)) {echo $nav_color;} else {echo "FFF";}?>;background-color: #<?php $nav_bg_active_color = get_option('wcsr_content_nav_active_bg'); if(!empty($nav_bg_active_color)) {echo $nav_bg_active_color;} else {echo "CCC";}?>;}
 .<?php echo "Slide_content_ID_".$GLOBALS['post']->ID;?> {font-size: 10px;float: right;clear: both;position: relative;top: -2px;background-color: #CCC;padding: 3px 3px;line-height: 10px !important;}
-.wcsr_single  .wcsr_navig_window li .wcsr_contnt {height: 86px; float: none;font-size: 12px;font-weight: normal;padding-top: 1px;}
-.wcsr_single  .wcsr_dclass1{width: 300px; height: 100px; margin-top: 40px;}
-.wcsr_single  a.wcsr_bigimg_a{float: left; margin-left: 20px;   margin-bottom: 4px;}
-.wcsr_single  h1.wcsr_bigimg_h1{font-size:25px; margin-top: 1px;}
-.wcsr_single  p.wcsr_bigimg_p{ margin-top: 2px;}
-.wcsr_single  span.wcsr_span6{width: 40px; height: 40px; float: left; margin-top: 2px;}
-.wcsr_single  a {color:blue; text-decoration:none;}
-.wcsr_single  .wcsr_div2class{ margin-left: 10px; height: 100%;  overflow-y: hidden; xxoverflow: hidden;}
-.wcsr_single  .wcsr_thumgImgContainer{ margin: 0px ;height: 70px; float: left;  max-width:70px; width: 50%;}
-.wcsr_single  img.wcsr_thumbimage{width:100%;height:100%;}
-.wcsr_single  .wcsr_bigimg_contents{position: relative; height:300px; margin: 0 2% 0 0; float: left;width: 49%;} 
-.wcsr_single  .wcsr_bigimg_container {float:left; width:49%; max-width:300px; xx: <?php $img_width = get_option('wcsr_content_img_width'); if(!empty($img_width)) {echo $img_width;} else {echo "300px";}?>; height: 100%; xx:<?php $height = get_option('wcsr_content_height'); if(!empty($height)) {echo $height;} else {echo "300px";}?>;}
-.wcsr_single  .wcsr_big_area ul li img.wcsr_bigimg {max-width: 100%; height:100%; border: none !important; }
-.wcsr_single  .wcsr_adminEdit{position: absolute; left:0px;top:0px;   z-index: 44; background-color:#D3F5CB; cursor:pointer;border-radius: 5px;padding: 1px;}
+.wcsr_single .wcsr_navig_window li .wcsr_contnt {height: 86px; float: none;font-size: 12px;font-weight: normal;padding-top: 1px;}
+.wcsr_single .wcsr_dclass1{width: 300px; height: 100px; margin-top: 40px;}
+.wcsr_single a.wcsr_bigimg_a{float: left; margin-left: 20px;   margin-bottom: 4px;}
+.wcsr_single h1.wcsr_bigimg_h1{font-size:25px; margin-top: 1px;}
+.wcsr_single p.wcsr_bigimg_p{ margin-top: 2px;}
+.wcsr_single span.wcsr_span6{width: 40px; height: 40px; float: left; margin-top: 2px;}
+.wcsr_single a {color:blue; text-decoration:none;}
+.wcsr_single .wcsr_div2class{ margin-left: 10px; height: 100%;  overflow-y: hidden; xxoverflow: hidden;}
+.wcsr_single .wcsr_thumgImgContainer{ margin: 0px ;height: 70px; float: left;  max-width:70px; width: 50%;}
+.wcsr_single img.wcsr_thumbimage{width:100%;height:100%;}
+.wcsr_single .wcsr_bigimg_contents{position: relative; height:300px; margin: 0 2% 0 0; float: left;width: 49%;} 
+.wcsr_single .wcsr_bigimg_container {float:left; width:49%; max-width:300px; xx: <?php $img_width = get_option('wcsr_content_img_width'); if(!empty($img_width)) {echo $img_width;} else {echo "300px";}?>; height: 100%; xx:<?php $height = get_option('wcsr_content_height'); if(!empty($height)) {echo $height;} else {echo "300px";}?>;}
+.wcsr_single .wcsr_big_area ul li img.wcsr_bigimg {max-width: 100%; height:100%; border: none !important; }
+.wcsr_single .wcsr_adminEdit{position: absolute; left:0px;top:0px;   z-index: 44; background-color:#D3F5CB; cursor:pointer;border-radius: 5px;padding: 1px;}
 .wcsr_empty{background-color:red;padding:10px;} 
 </style>
 <?php 
