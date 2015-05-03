@@ -167,7 +167,7 @@ foreach( $myposts as $post ) {
 							<img src="<?php echo $post['thumbb'];?>" class="wcsr_thumbimage" alt="<?php echo $post['miniTitle'];?>" />
 						</div>
 						<div class="wcsr_div2class">
-							<div class="wcsr_titl"><?php echo WCSR_cut($post['titlee'], ($TrimEnabled ? $TrimEnabled : 30 ) , "..."); ?></div>
+							<div class="wcsr_titl"><?php echo WCSR_cut($post['titlee'], ($TrimEnabled ? $TrimEnabled : 999 ) , "..."); ?></div>
 							<?php if ($DescrEnabled){ ?> <div class="wcsr_contnt"><?php echo WCSR_cut($post['excerptt'], 120, "...");  ?></div> <?php } ?>
 						</div>
 					</a>
