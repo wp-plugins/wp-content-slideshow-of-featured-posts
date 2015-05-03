@@ -139,7 +139,7 @@ foreach( $myposts as $post ) {
 		<div class="wcsr_big_area jtarget_wcsr_b1_<?php echo $GLOBALS['wcsr_tempid'];?>">
 			<ul>
 			<?php $counting = 1;	foreach ($allPosts as $post){	?>
-				<li id="main-post-<?php echo $counting;?>" class="wcsr_each_slide postid-<?php echo $post['ID'];?>" onclick="location.href='<?php $post['permalinkk']; ?>';" title="<?php _e("Permanent Link to ");?><?php echo $post['titlee']; ?>">
+				<li id="main-post-<?php echo $counting;?>" class="wcsr_each_slide postid-<?php echo $post['ID'];?>" onclick="location.href='<?php $post['permalinkk']; ?>';" title="<?php _e('Open'); _e(' "'.$post['titlee'].'"');?>">
 					<?php echo $post['adminEditUrl'];?>
 					<div class="wcsr_bigimg_container">
 						<img src="<?php echo $post['thumbb'];?>" class="wcsr_bigimg" alt="<?php echo $post['miniTitle'];?>" />
