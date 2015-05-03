@@ -47,8 +47,10 @@ function save_content__WCSR($post_id){
 
 function insert_content__WCSR($atts, $content = null) {
 	//i.e.  [contentSlideshow post_types='post,page,mycustomm']
-	if (!empty($atts['post_types'])) { $post_types = array_filter(explode(',',$atts['post_types'])); }
-	else							 { $post_types = get_post_types(); }
+	$post_types = (empty($atts['post_types']) ? get_post_types() : array_filter(explode(',',$atts['post_types']))  );
+	//i.e.  [contentSlideshow thumb_descriptions='no']
+	$DescrEnabled =  (  ('no'==$atts['thumb_descriptions']) ?  false:true );
+	
     include_once(__DIR__.'/content-slideshow.php'); 	//includes jquery.cycle.all.2.72.js
 }
 add_shortcode("contentSlideshow", "insert_content__WCSR");
@@ -182,11 +184,12 @@ function my_submenu_page_callback(){ ?>
 	<p>USAGE: on Edit Page/Post, check the checkbox "FEATURE THIS POST", so, it will be listed in FEATURED POSTS lists.</p>
 
 	<div style="margin-top: 15px;">
-			<li>Then, Add shortcode in posts/pages/homepage: <code>[contentSlideshow posttype="post,page,custom" content_order="ASC" content_sort="post_date"]</code>  </li>
+			<li>Then, Add shortcode in posts/pages/homepage: <code>[contentSlideshow posttype="post,page,custom" thumb_descriptions="no"]</code>  </li>
 			<table>
 				<tr><td><b>posttype</b></td><td> specify one or several(comma delimited) post types, and that shortcode will get ALL FEATURED MARKED POSTS from them</td></tr>
-				<tr><td><b>content_order</b></td><td> ASC or DESC </td></tr>
-				<tr><td><b>content_sort</b></td><td>  post_date OR title OR rand </td></tr>
+				<tr><td><b>thumb_descriptions</b></td><td><b>yes</b>(default) or <b>no</b> (Show descriptions under thumbnail titles)</td></tr>
+				<tr><td><b>content_order</b></td><td><b>ASC</b> or <b>DESC</b> </td></tr>
+				<tr><td><b>content_sort</b></td><td><b>post_date</b> OR <b>title</b> OR rand </td></tr>
 			</table>
 			<br/>
 			<br/>

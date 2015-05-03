@@ -169,7 +169,7 @@ foreach( $myposts as $post ) {
 						</div>
 						<div class="wcsr_div2class">
 							<div class="wcsr_titl"><?php echo WCSR_cut($post['titlee'], 30, "..."); ?></div>
-							<div class="wcsr_contnt"><?php echo WCSR_cut($post['excerptt'], 120, "...");  ?></div>
+							<?php if ($DescrEnabled){ ?> <div class="wcsr_contnt"><?php echo WCSR_cut($post['excerptt'], 120, "...");  ?></div> <?php } ?>
 						</div>
 					</a>
 				</li><?php 
