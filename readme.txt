@@ -2,9 +2,9 @@
 Contributors: IWEBIX, Dennis Nissle, Uzair Hayat, selnomeria
 Donate link: ##https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PTWKHUUTVXCRQ
 Tags: slideshow, content slideshow, slideshow, wp slideshow, featured content slideshow, gallery, content gallery, wordpress gallery
-Requires at least: 3.0
+Requires at least: 3.8
 Tested up to: 3.8
-Stable tag: 1.0
+Stable tag: 1.1
 
 This is updated version of WP Content Slideshow REBORN. This shows posts slideshow, with thumbnails and descriptions. 
 
