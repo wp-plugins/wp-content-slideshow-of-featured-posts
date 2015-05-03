@@ -73,15 +73,14 @@ overflow:hidden;border: 9px solid #CCC;position: relative;border-radius: 4px; ma
 .wcsr_single  .wcsr_big_area ul li .span6 img {width: 40px;height: 40px;float: left;}
 .wcsr_single  .wcsr_big_area{	float:left;	width:69.5%;}
 .wcsr_single   ul.wcsr_navig_window {height: 100%; xx: <?php $height = get_option('wcsr_content_height'); if(!empty($height)) {echo $height;} else {echo "250px";}?>;width: 29.5%; xx:<?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270px";}?>;margin:0;padding: 0;float:left;overflow:auto;}
-.slideme {font-size: 9px;float: right;}
-.slideme a {font-size: 8px;text-decoration: none;color: #CCC;}
-.wcsr_single  .wcsr_navig_window li {background-color: #<?php $content_nav_bg = get_option('wcsr_content_nav_bg'); if(!empty($content_nav_bg)) {echo $content_nav_bg;} else {echo "EEE";}?>; display:block;margin:0;padding:0;list-style-type:none;display:block; height:73px;  width:99%; xx:<?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270";}?>px;display:block;border: 1px solid;overflow: hidden;margin: 0px;float: left;padding: 0px;margin-left: 0px;}
-.wcsr_single  .wcsr_navig_window li a {height: 100%; width: <?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270";}?>px;display:block;margin:0;padding:2px;list-style-type:none;display:block;height:<?php $content_nav_height = get_option('wcsr_content_nav_height'); if(!empty($content_nav_height)) {echo $content_nav_height;} else {echo "62";}?>px;color:#<?php $content_nav_color = get_option('wcsr_content_nav_color'); if(!empty($content_nav_color)) {echo $content_nav_color;} else {echo "333";}?>;overflow:hidden;font-size: 14px;font-weight: bold;border-bottom: 1px solid #CCC;line-height:1.35em;}
-.wcsr_single  .wcsr_navig_window li .wcsr_contnt {height: 86px; float: none;font-size: 12px;font-weight: normal;padding-top: 1px;}
+.wcsr_maincontainer .slideme {font-size: 9px;float: right;}
+.wcsr_maincontainer .slideme a {font-size: 8px;text-decoration: none;color: #CCC;}
+.wcsr_single  .wcsr_navig_window li {background-color: #<?php $content_nav_bg = get_option('wcsr_content_nav_bg'); if(!empty($content_nav_bg)) {echo $content_nav_bg;} else {echo "EEE";}?>; display:block;margin:0; padding: 2px 2px 2px 2px; list-style-type:none;display:block; height:73px;  width:100%; xx:<?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270";}?>px; display:block; border: 1px solid; overflow: hidden; float: left;}
+.wcsr_single  .wcsr_navig_window li a {height: 100%;xxheight:<?php $content_nav_height = get_option('wcsr_content_nav_height'); if(!empty($content_nav_height)) {echo $content_nav_height;} else {echo "62";}?>px;  width: 100%; xxwidth: <?php $content_nav_width = get_option('wcsr_content_nav_width'); if(!empty($content_nav_width)) {echo $content_nav_width;} else {echo "270";}?>px; display:block; margin:0; padding:0px; list-style-type:none; display:block; color:#<?php $content_nav_color = get_option('wcsr_content_nav_color'); if(!empty($content_nav_color)) {echo $content_nav_color;} else {echo "333";}?>;overflow:hidden;font-size: 14px; font-weight: bold; line-height:1.3em;}
 .wcsr_single  .wcsr_navig_window li.on a {background-color: #<?php $nav_bg_active_color = get_option('wcsr_content_nav_active_bg'); if(!empty($nav_bg_active_color)) {echo $nav_bg_active_color;} else {echo "CCC";}?>;color:#fff;}
 .wcsr_single  .wcsr_navig_window li a:hover,.wcsr_single  .wcsr_navig_window li a:active {color:#<?php $nav_color = get_option('wcsr_content_nav_active_color'); if(!empty($nav_color)) {echo $nav_color;} else {echo "FFF";}?>;background-color: #<?php $nav_bg_active_color = get_option('wcsr_content_nav_active_bg'); if(!empty($nav_bg_active_color)) {echo $nav_bg_active_color;} else {echo "CCC";}?>;}
-.<?php echo "Slide_content_ID_".$GLOBALS['post']->ID;?> {font-size: 10px;float: right;clear: both;position: relative;top: -2px;background-color: #CCC;padding: 3px 3px;
-line-height: 10px !important;}
+.<?php echo "Slide_content_ID_".$GLOBALS['post']->ID;?> {font-size: 10px;float: right;clear: both;position: relative;top: -2px;background-color: #CCC;padding: 3px 3px;line-height: 10px !important;}
+.wcsr_single  .wcsr_navig_window li .wcsr_contnt {height: 86px; float: none;font-size: 12px;font-weight: normal;padding-top: 1px;}
 .wcsr_single  .wcsr_dclass1{width: 300px; height: 100px; margin-top: 40px;}
 .wcsr_single  a.wcsr_bigimg_a{float: left; margin-left: 20px;   margin-bottom: 4px;}
 .wcsr_single  h1.wcsr_bigimg_h1{font-size:25px; margin-top: 1px;}
@@ -120,7 +119,7 @@ foreach( $myposts as $post ) {
 	$allPosts[$post->ID]['ID']= $post->ID;
 	$allPosts[$post->ID]['permalinkk']= get_the_permalink($post->ID);
 	$allPosts[$post->ID]['titlee']=  $post->post_title;
-	$allPosts[$post->ID]['trimedTitle']= preg_replace('/(\s*)([^\s]*)(.*)/', '$2', $post->post_title);
+	$allPosts[$post->ID]['miniTitle']= WCSR_cut($post->post_title,  30 , "..."); //preg_replace('/(\s*)([^\s]*)(.*)/', '$2', $post->post_title);
 	$allPosts[$post->ID]['excerptt']= $post->post_content;
 	$allPosts[$post->ID]['authoridd']= $post->post_author;	
 	$allPosts[$post->ID]['adminEditUrl'] = !is_adminn_444442 ? '': 
@@ -143,10 +142,10 @@ foreach( $myposts as $post ) {
 				<li id="main-post-<?php echo $counting;?>" class="wcsr_each_slide postid-<?php echo $post['ID'];?>" onclick="location.href='<?php $post['permalinkk']; ?>';" title="<?php _e("Permanent Link to ");?><?php $post['titlee']; ?>">
 					<?php echo $post['adminEditUrl'];?>
 					<div class="wcsr_bigimg_container">
-						<img src="<?php echo $post['thumbb'];?>" class="wcsr_bigimg" alt="<?php echo $post['trimedTitle'];?>" />
+						<img src="<?php echo $post['thumbb'];?>" class="wcsr_bigimg" alt="<?php echo $post['miniTitle'];?>" />
 					</div>
 					<div class="wcsr_bigimg_contents">
-						<a class="wcsr_bigimg_a" href="<?php echo $post['permalinkk']; ?>" title="<?php $post['titlee']; ?>" target="_blank" >
+						<a class="wcsr_bigimg_a" href="<?php echo $post['permalinkk']; ?>" target="_blank" >
 							<h1 class="wcsr_bigimg_h1"><?php echo $post['titlee']; ?></h1>
 							<p class="wcsr_bigimg_p"><?php echo WCSR_cut( $post['excerptt'], 450, "..."); ?> </p> 
 						</a>
@@ -163,12 +162,12 @@ foreach( $myposts as $post ) {
 			foreach ($allPosts as $post){ 	
 				?>
 				<li id="post-<?php echo $counting; ?>" class="wcsr_navig_each_li postid-<?php echo $post['ID'];?> <?php echo ($counting==1)? 'on' :'';?> clearfix" >
-					<a href="#main-post-<?php echo $counting; ?>" class="wcsr_navig_a postThumb-<?php echo $post['ID']; ?>" title="<?php echo WCSR_cut($post['titlee'], 30, "...") ?>">
+					<a href="#main-post-<?php echo $counting; ?>" class="wcsr_navig_a postThumb-<?php echo $post['ID']; ?>" title="<?php echo WCSR_cut($post['titlee'],  30 , "...") ?>">
 						<div class="wcsr_thumgImgContainer">
-							<img src="<?php echo $post['thumbb'];?>" class="wcsr_thumbimage" alt="<?php echo $post['trimedTitle'];?>" />
+							<img src="<?php echo $post['thumbb'];?>" class="wcsr_thumbimage" alt="<?php echo $post['miniTitle'];?>" />
 						</div>
 						<div class="wcsr_div2class">
-							<div class="wcsr_titl"><?php echo WCSR_cut($post['titlee'], 30, "..."); ?></div>
+							<div class="wcsr_titl"><?php echo WCSR_cut($post['titlee'], ($TrimEnabled ? $TrimEnabled : 30 ) , "..."); ?></div>
 							<?php if ($DescrEnabled){ ?> <div class="wcsr_contnt"><?php echo WCSR_cut($post['excerptt'], 120, "...");  ?></div> <?php } ?>
 						</div>
 					</a>
