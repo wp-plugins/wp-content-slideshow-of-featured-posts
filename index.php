@@ -14,20 +14,9 @@ add_action( 'activated_plugin', 'activat_redirect__WCSR' ); function activat_red
 
 add_action("add_meta_boxes", "content_init__WCSR");function content_init__WCSR(){
 	foreach (get_post_types() as $each){
-		add_meta_box("wcsr_slider", "WP Content Slideshow REVISITED Options", "content_meta__WCSR", $each, "normal", "high");
-	}
-}
-	function content_meta__WCSR(){
-		global $post;
-		$custom = get_post_custom($post->ID);
-		$wcsr_slider = $custom["wcsr_slider"][0];
-	?>
-		<div class="inside"><table class="form-table">
-				<tr>
-					<th><label for="wcsr_slider">Feature in WP Content Slideshow REVISITED?</label></th>
-					<td><input type="checkbox" name="wcsr_slider" value="1" <?php if($wcsr_slider == 1) { echo "checked='checked'";} ?></td>				
-				</tr>
-		</table></div>
+		add_meta_box("wcsr_slider", "WP Content Slideshow REVISITED Options", "content_meta__WCSR", $each, "side", "low");
+	}} 	function content_meta__WCSR(){	global $post;	$custom = get_post_custom($post->ID); $wcsr_slider = $custom["wcsr_slider"][0];	?>
+		<div style="color:orange;font-weight:bold;">Feature in WP Content Slideshow REVISITED? <input style="margin:0 0 0 25px;" type="checkbox" name="wcsr_slider" value="1" <?php if($wcsr_slider == 1) { echo "checked='checked'";} ?> /></div>
 	<?php
 	}
 	
