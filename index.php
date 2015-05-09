@@ -11,7 +11,7 @@ Author URI: ###
 add_action( 'activated_plugin', 'activat_redirect__WCSR' ); function activat_redirect__WCSR( $plugin ) { if( $plugin == plugin_basename( __FILE__ ) ) { exit( wp_redirect( admin_url( 'admin.php?page=my-wcrs-pageslug' ) ) ); } }
 
 
-
+//add checkbox in POSTS/PAGES edit page.
 add_action("add_meta_boxes", "content_init__WCSR");function content_init__WCSR(){
 	foreach (get_post_types() as $each){
 		add_meta_box("wcsr_slider", "WP Content Slideshow (REVISITED)", "content_meta__WCSR", $each, "side", "low");
@@ -19,21 +19,20 @@ add_action("add_meta_boxes", "content_init__WCSR");function content_init__WCSR()
 		<div style="color:orange;font-weight:bold;">Feature in WP Content Slideshow? <input style="margin:0 0 0 25px;" type="checkbox" name="wcsr_slider" value="1" <?php if($wcsr_slider == 1) { echo "checked='checked'";} ?> /></div>
 	<?php
 	}
-	
-	
-add_action('save_post', 'save_content__WCSR');
-function save_content__WCSR($post_id){
-    if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )  {  return $post_id; }
-    global $post;
-	if (isset($_POST['wcsr_slider'])){
-		if (in_array($post->post_type,  get_post_types())) { 
-			update_post_meta($post->ID, "wcsr_slider", $_POST["wcsr_slider"]);
+	//save checked
+	add_action('save_post', 'save_content__WCSR');function save_content__WCSR($post_id){
+		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )  {  return $post_id; }
+		global $post;
+		if (isset($_POST['wcsr_slider'])){
+			if (in_array($post->post_type,  get_post_types())) { 
+				update_post_meta($post->ID, "wcsr_slider", $_POST["wcsr_slider"]);
+			}
 		}
 	}
-}
 
 
-
+//SHORTCODE [contentSlideshow]
+add_shortcode("contentSlideshow", "insert_content__WCSR");
 function insert_content__WCSR($atts, $content = null) {
 	//[contentSlideshow post_types='post,page,mycustomm']
 	$post_types = (empty($atts['post_types']) ? get_post_types() : array_filter(explode(',',$atts['post_types']))  );
@@ -41,12 +40,12 @@ function insert_content__WCSR($atts, $content = null) {
 	$DescrEnabled =  (  ('no'==$atts['thumb_descriptions']) ?  false:true );
 	//[contentSlideshow thumb_title_trim='0']
 	$TrimEnabled =  (  ('0'==$atts['thumb_title_trim']) ?  false: $atts['thumb_title_trim'] );
-	
     include_once(__DIR__.'/content-slideshow.php'); 	//includes jquery.cycle.all.2.72.js
+	return $out;
 }
-add_shortcode("contentSlideshow", "insert_content__WCSR");
-
-
+//Check for Post Thumbnail Support
+add_theme_support( 'post-thumbnails' );
+// set image width
 add_action('after_setup_theme','img_init__WCSR'); function img_init__WCSR(){
 	$img_width = get_option('wcsr_content_img_width'); if(empty($img_width))		{ $img_width = 300;}
 	$img_height = get_option('wcsr_content_height');   if(empty($img_height))	{ $img_height = 250;}
@@ -54,9 +53,6 @@ add_action('after_setup_theme','img_init__WCSR'); function img_init__WCSR(){
 		add_image_size( 'wcsr_slider', $img_width, $img_height, true ); 
 	}
 }
-
-//Check for Post Thumbnail Support
-add_theme_support( 'post-thumbnails' );
 //remove warning
 add_action('wp','remove_jqcycle_warning__WCSR');function remove_jqcycle_warning__WCSR(){
 	if (isset($_POST['wcsr_ok4'])) {if (current_user_can('edit_post')) {update_option('wcsr_JqueryCycle_warning', '1'); exit('value updated!');}  }
@@ -88,10 +84,7 @@ add_action('wp','remove_jqcycle_warning__WCSR');function remove_jqcycle_warning_
 // ===================================================================================================================================
 add_action('admin_menu', 'REVISITEDD_slideshow_options_page'); function REVISITEDD_slideshow_options_page() { add_submenu_page('options-general.php' , 'WP Content Slideshow', 'WP Content Slideshow', 'manage_options', 'my-wcrs-pageslug', 'my_submenu_page_callback' );} 	
 function my_submenu_page_callback(){ ?>
-
 <div class="wrap">
-
-	
 	<div style="margin-left:0px; float: left; width: 400px;">
 		<!--
 		<form method="post" action="options.php"><?php wp_nonce_field('update-options'); ?>
