@@ -1,10 +1,10 @@
 === WP Content Slideshow REVISITED (featured post) ===
 Contributors: IWEBIX, Dennis Nissle, Uzair Hayat, selnomeria
 Donate link: ##https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PTWKHUUTVXCRQ
-Tags: slideshow, content slideshow, slideshow, wp slideshow, featured content slideshow, gallery, content gallery, wordpress gallery
+Tags: slideshow, wp, content, posts slideshow,featured post content, page, gallery,
 Requires at least: 3.8
-Tested up to: 3.8
-Stable tag: 1.1
+Tested up to: 4.2
+Stable tag: 1.2
 
 This is updated version of WP Content Slideshow REBORN. This shows posts slideshow, with thumbnails and descriptions. 
 

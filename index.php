@@ -3,7 +3,7 @@
 Plugin Name: WP Content Slideshow REVISITED (featured post)
 Plugin URI: http://www.uziiuzair.net
 Description: A modified version of <a href="http://wordpress.org/plugins/wp-content-slideshow-reborn/">WP Content Slideshow Reborn</a>. This shows posts slideshow, with thumbnails and descriptions. 
-Version: 1.1
+Version: 1.2
 Author: Selnomeria, Uzair Hayat (@uziiuzair), IWEBIX
 Author URI: ###
 */
