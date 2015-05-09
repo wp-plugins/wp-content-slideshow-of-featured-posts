@@ -136,7 +136,7 @@ function my_submenu_page_callback(){ ?>
 	<p>USAGE: on Edit Page/Post, check the checkbox "FEATURE THIS POST", so, it will be listed in FEATURED POSTS lists.</p>
 
 	<div style="margin-top: 15px;">
-			<li>Then, Add shortcode in posts/pages/homepage: <code>[contentSlideshow posttype="post,page,custom" thumb_descriptions="no"]</code>  </li>
+			<li>Then, Add shortcode in posts/pages/homepage: <code>[ContentSlideshowRevisited posttype="post,page,custom" thumb_descriptions="no"]</code>  </li>
 			<table>
 				<tr><td><b>posttype</b></td><td> specify one or several(comma delimited) post types, and that shortcode will get ALL FEATURED MARKED POSTS from them</td></tr>
 				<tr><td><b>thumb_descriptions</b></td><td><b>yes</b>(default) or <b>no</b> (Show descriptions under thumbnail titles)</td></tr>
@@ -147,7 +147,7 @@ function my_submenu_page_callback(){ ?>
 			<br/>
 			<br/>
 			<br/>p.s.
-			<br/>1) in template files, you can use: <code>&lt;?php do_shortcode('[contentSlideshow...]'); ?&gt;</code>
+			<br/>1) in template files, you can use: <code>&lt;?php do_shortcode('[ContentSlideshowRevisited...]'); ?&gt;</code>
 			<br/>2) When you are logged in, you will see <b>"EDIT THIS POST"</b> in the top of the slideshow.
 	</div>
 </div>
@@ -174,15 +174,15 @@ function my_submenu_page_callback(){ ?>
 
 
 
-//SHORTCODE [contentSlideshow]
-add_shortcode("contentSlideshow", "insert_content__WCSR");
+//SHORTCODE [ContentSlideshowRevisited]
+add_shortcode("ContentSlideshowRevisited", "insert_content__WCSR");
 function insert_content__WCSR($atts, $content = null) {
 	
-	//[contentSlideshow post_types='post,page,mycustomm']
+	//[ContentSlideshowRevisited post_types='post,page,mycustomm']
 	$post_types = (empty($atts['post_types']) ? get_post_types() : array_filter(explode(',',$atts['post_types']))  );
-	//[contentSlideshow thumb_descriptions='no']
+	//[ContentSlideshowRevisited thumb_descriptions='no']
 	$DescrEnabled =  (  ('no'==$atts['thumb_descriptions']) ?  false:true );
-	//[contentSlideshow thumb_title_trim='0']
+	//[ContentSlideshowRevisited thumb_title_trim='0']
 	$TrimEnabled =  (  ('0'==$atts['thumb_title_trim']) ?  false: $atts['thumb_title_trim'] );
 	
 	
@@ -332,7 +332,7 @@ function My_WCSR_clicker(){
 						<div class="wcsr_bigimg_contents">
 							<a class="wcsr_bigimg_a" href="'.$post['permalinkk'].'" target="_blank" >
 								<h1 class="wcsr_bigimg_h1">'.$post['titlee'].'</h1>
-								<p class="wcsr_bigimg_p"'. WCSR_cut( $post['excerptt'], 450, "...").'</p> 
+								<p class="wcsr_bigimg_p">'. WCSR_cut( $post['excerptt'], 450, "...").'</p> 
 							</a>
 						</div>
 					</li>';	$counting = $counting + 1; 
