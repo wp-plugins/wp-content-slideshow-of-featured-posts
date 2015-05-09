@@ -265,33 +265,31 @@ function My_WCSR_clicker(){
 	define('WCSR_JSFUNCS_ALREADY_CALLED', true);
 	}
 
-	
-$slideshow_index=rand(1,99999).rand(1,99999);
 $out .= '	
 <script type="text/javascript">
 // Tutorial by http://ooyes.net/
-$slideshow'.$slideshow_index.' = {context: false,tabs: false,timeout: 8000,	fx: "fade",  slideSpeed: 900,tabSpeed: 900,     
+$slideshow'.$GLOBALS['wcsr_tempid'].' = {context: false,tabs: false,timeout: 8000,	fx: "fade",  slideSpeed: 900,tabSpeed: 900,     
 	init:             function() { this.context = jQuery("#jtarget_wcsr_singl_'.$GLOBALS['wcsr_tempid'].'");  this.tabs = jQuery("ul.jtarget_wcsr_navigwind_'.$GLOBALS['wcsr_tempid'].' li", this.context);  this.tabs.remove(); this.startSlideshow(); },
-	startSlideshow:   function() {
-		jQuery("div.jtarget_wcsr_b1_'.$GLOBALS['wcsr_tempid'].' > ul", $slideshow.context).cycle({
-			fx: $slideshow.fx,
-			pager: jQuery("ul.jtarget_wcsr_navigwind_'. $GLOBALS['wcsr_tempid'].'", $slideshow.context),
-			pagerAnchorBuilder: $slideshow.startTabs,
-			before: $slideshow.Tabactive,
-			timeout: $slideshow.timeout,
-			speed: $slideshow.slideSpeed,
-			fastOnEvent: $slideshow.tabSpeed,
+	startSlideshow:   function() { var sldd= $slideshow'.$GLOBALS['wcsr_tempid'].';
+		jQuery("div.jtarget_wcsr_b1_'.$GLOBALS['wcsr_tempid'].' > ul", $slideshow'.$GLOBALS['wcsr_tempid'].'.context).cycle({
+			fx: sldd.fx,
+			pager: jQuery("ul.jtarget_wcsr_navigwind_'. $GLOBALS['wcsr_tempid'].'", sldd.context),
+			pagerAnchorBuilder: sldd.startTabs,
+			before: sldd.Tabactive,
+			timeout: sldd.timeout,
+			speed: sldd.slideSpeed,
+			fastOnEvent: sldd.tabSpeed,
 			pauseOnPagerHover: true,
 			pause: true
 		});            
 	},
-	startTabs:    function(i, slide) {return $slideshow.tabs.eq(i); },
+	startTabs:    function(i, slide) {return $slideshow'.$GLOBALS['wcsr_tempid'].'.tabs.eq(i); },
 	Tabactive:    function(currentSlide, nextSlide) {
-		var activeTab = jQuery("a[href=\'#" + nextSlide.id + "\']", $slideshow.context);
-		if(activeTab.length) { $slideshow.tabs.removeClass("on");    activeTab.parent().addClass("on"); }            
+		var activeTab = jQuery("a[href=\'#" + nextSlide.id + "\']", $slideshow'.$GLOBALS['wcsr_tempid'].'.context);
+		if(activeTab.length) { $slideshow'.$GLOBALS['wcsr_tempid'].'.tabs.removeClass("on");    activeTab.parent().addClass("on"); }            
 	}            
 };
-jQuery(document).ready(function($) {  $slideshow'.$slideshow_index.'.init(); }); 
+jQuery(document).ready(function($) {  $slideshow'.$GLOBALS['wcsr_tempid'].'.init(); }); 
 </script>';
 	//=================================================== END OF -- Initial Cycle =========================
 
