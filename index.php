@@ -214,36 +214,8 @@ function insert_content__WCSR($atts, $content = null) {
 			) { $out .= '<script>alert("'.$message.'");</script>'; }
 			$out .= '<script>if (jQuery.isFunction(jQuery.fn.cycle)) {alert("'.$message.'");}</script>';
 		}
-		
-		
 	$out .= '
 <script type="text/javascript" src="'.plugin_dir_url(__FILE__).'/jquery.cycle.all.2.72.js"></script>
-<script type="text/javascript">
-// Tutorial by http://ooyes.net/
-$slideshow = {context: false,tabs: false,timeout: 8000,	fx: "fade",  slideSpeed: 900,tabSpeed: 900,     
-	init:             function() { this.context = jQuery("#jtarget_wcsr_singl_'.$GLOBALS['wcsr_tempid'].'");  this.tabs = jQuery("ul.jtarget_wcsr_navigwind_'.$GLOBALS['wcsr_tempid'].' li", this.context);  this.tabs.remove(); this.startSlideshow(); },
-	startSlideshow:   function() {
-		jQuery("div.jtarget_wcsr_b1_'.$GLOBALS['wcsr_tempid'].' > ul", $slideshow.context).cycle({
-			fx: $slideshow.fx,
-			pager: jQuery("ul.jtarget_wcsr_navigwind_'. $GLOBALS['wcsr_tempid'].'", $slideshow.context),
-			pagerAnchorBuilder: $slideshow.startTabs,
-			before: $slideshow.Tabactive,
-			timeout: $slideshow.timeout,
-			speed: $slideshow.slideSpeed,
-			fastOnEvent: $slideshow.tabSpeed,
-			pauseOnPagerHover: true,
-			pause: true
-		});            
-	},
-	startTabs:    function(i, slide) {return $slideshow.tabs.eq(i); },
-	Tabactive:    function(currentSlide, nextSlide) {
-		var activeTab = jQuery("a[href=\'#" + nextSlide.id + "\']", $slideshow.context);
-		if(activeTab.length) { $slideshow.tabs.removeClass("on");    activeTab.parent().addClass("on"); }            
-	}            
-};
-jQuery(document).ready(function($) {  $slideshow.init(); }); 
-</script>
-
 <script type="text/javascript">
 //change them onmouseover
 function My_WCSR_clicker(){
@@ -290,8 +262,37 @@ function My_WCSR_clicker(){
 .wcsr_empty{background-color:red;padding:10px;} 
 </style>
 ';
-		define('WCSR_JSFUNCS_ALREADY_CALLED', true);
+	define('WCSR_JSFUNCS_ALREADY_CALLED', true);
 	}
+
+	
+$slideshow_index=rand(1,99999).rand(1,99999);
+$out .= '	
+<script type="text/javascript">
+// Tutorial by http://ooyes.net/
+$slideshow'.$slideshow_index.' = {context: false,tabs: false,timeout: 8000,	fx: "fade",  slideSpeed: 900,tabSpeed: 900,     
+	init:             function() { this.context = jQuery("#jtarget_wcsr_singl_'.$GLOBALS['wcsr_tempid'].'");  this.tabs = jQuery("ul.jtarget_wcsr_navigwind_'.$GLOBALS['wcsr_tempid'].' li", this.context);  this.tabs.remove(); this.startSlideshow(); },
+	startSlideshow:   function() {
+		jQuery("div.jtarget_wcsr_b1_'.$GLOBALS['wcsr_tempid'].' > ul", $slideshow.context).cycle({
+			fx: $slideshow.fx,
+			pager: jQuery("ul.jtarget_wcsr_navigwind_'. $GLOBALS['wcsr_tempid'].'", $slideshow.context),
+			pagerAnchorBuilder: $slideshow.startTabs,
+			before: $slideshow.Tabactive,
+			timeout: $slideshow.timeout,
+			speed: $slideshow.slideSpeed,
+			fastOnEvent: $slideshow.tabSpeed,
+			pauseOnPagerHover: true,
+			pause: true
+		});            
+	},
+	startTabs:    function(i, slide) {return $slideshow.tabs.eq(i); },
+	Tabactive:    function(currentSlide, nextSlide) {
+		var activeTab = jQuery("a[href=\'#" + nextSlide.id + "\']", $slideshow.context);
+		if(activeTab.length) { $slideshow.tabs.removeClass("on");    activeTab.parent().addClass("on"); }            
+	}            
+};
+jQuery(document).ready(function($) {  $slideshow'.$slideshow_index.'.init(); }); 
+</script>';
 	//=================================================== END OF -- Initial Cycle =========================
 
 
@@ -320,7 +321,7 @@ function My_WCSR_clicker(){
 		//$allPosts[$post->ID]['authoravatarr']= get_avatar( get_the_author_meta('user_email', $post->post_author ), apply_filters('twentytwelve_author_bio_avatar_size', 62 ) );
 	}
 	$out .= '
-		<div id="jtarget_wcsr_singl_'.$GLOBALS['wcsr_tempid'].'" class="wcsr_single ">
+		<div class="wcsr_single"  id="jtarget_wcsr_singl_'.$GLOBALS['wcsr_tempid'].'" >
 			<div class="wcsr_big_area jtarget_wcsr_b1_'.$GLOBALS['wcsr_tempid'].'">
 				<ul>';
 				$counting = 1;	foreach ($allPosts as $post){	$out .= '
