@@ -6,8 +6,7 @@ Description: A modified version of <a href="http://wordpress.org/plugins/wp-cont
 Version: 1.2
 Author: Selnomeria, Uzair Hayat (@uziiuzair), IWEBIX
 Author URI: ###
-*/
-if ( ! defined( 'ABSPATH' ) ) exit; //Exit if accessed directly
+*/ if ( ! defined( 'ABSPATH' ) ) exit; //Exit if accessed directly
 
 //REDIRECT SETTINGS PAGE (after activation)
 add_action( 'activated_plugin', 'activat_redirect__WCSR' ); function activat_redirect__WCSR( $plugin ) { if( $plugin == plugin_basename( __FILE__ ) ) { exit( wp_redirect( admin_url( 'admin.php?page=my-wcrs-pageslug' ) ) ); } }
