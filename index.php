@@ -3,7 +3,7 @@
 Plugin Name: WP Content Slideshow REVISITED (featured post)
 Plugin URI: http://www.uziiuzair.net
 Description: A modified version of <a href="http://wordpress.org/plugins/wp-content-slideshow-reborn/">WP Content Slideshow Reborn</a>. This shows posts slideshow, with thumbnails and descriptions. 
-Version: 1.2
+Version: 1.21
 Author: Selnomeria, Uzair Hayat (@uziiuzair), IWEBIX
 Author URI: ###
 */ if ( ! defined( 'ABSPATH' ) ) exit; //Exit if accessed directly
@@ -134,20 +134,21 @@ function my_submenu_page_callback(){ ?>
 	<br/><br/>
 	<p>USAGE: on Edit Page/Post, check the checkbox "FEATURE THIS POST", so, it will be listed in FEATURED POSTS lists.</p>
 
-	<div style="margin-top: 15px;">
-			<li>Then, Add shortcode in posts/pages/homepage: <code>[ContentSlideshowRevisited posttype="post,page,custom" thumb_descriptions="no"]</code>  </li>
-			<table>
-				<tr><td><b>posttype</b></td><td> specify one or several(comma delimited) post types, and that shortcode will get ALL FEATURED MARKED POSTS from them</td></tr>
-				<tr><td><b>thumb_descriptions</b></td><td><b>yes</b>(default) or <b>no</b> (Show descriptions under thumbnail titles)</td></tr>
-				<tr><td><b>thumb_title_trim</b></td><td><b>0</b>(default) or <b>30</b>(or XX) (If inserted any number instead of 0, then the thumbnail titles will be trimmed to that chars)</td></tr>
-				<tr><td><b>content_order</b></td><td><b>ASC</b> or <b>DESC</b> </td></tr>
-				<tr><td><b>content_sort</b></td><td><b>post_date</b> OR <b>title</b> OR rand </td></tr>
-			</table>
-			<br/>
-			<br/>
-			<br/>p.s.
-			<br/>1) in template files, you can use: <code>&lt;?php do_shortcode('[ContentSlideshowRevisited...]'); ?&gt;</code>
-			<br/>2) When you are logged in, you will see <b>"EDIT THIS POST"</b> in the top of the slideshow.
+	<div style="margin-top: 15px;"> <style> table.brde td{border: 1px solid black;}</style>
+		<li>Then, Add shortcode in posts/pages/homepage: <code>[ContentSlideshowRevisited posttype="post,page,custom" thumb_descriptions="no"]</code>  </li>
+		<table class="brde">
+			<tr><td><b>posttype</b></td><td> specify one or several(comma delimited) post types, and that shortcode will get ALL FEATURED MARKED POSTS from them</td></tr>
+			<tr><td><b>thumb_descriptions</b></td><td><b>yes</b>(default) or <b>no</b> (Show descriptions under thumbnail titles)</td></tr>
+			<tr><td><b>thumb_title_trim</b></td><td><b>0</b>(default) or <b>30</b>(or XX) (If inserted any number instead of 0, then the thumbnail titles will be trimmed to that chars)</td></tr>
+			<tr><td><b>content_order</b></td><td><b>ASC</b> or <b>DESC</b> </td></tr>
+			<tr><td><b>content_sort</b></td><td><b>post_date</b> OR <b>title</b> OR rand </td></tr>
+		</table>
+		<br/>
+		<br/>
+		<br/>p.s.
+		<br/>1) in template files, you can use: <code>&lt;?php do_shortcode('[ContentSlideshowRevisited...]'); ?&gt;</code>
+		<br/>2) When you are logged in, you will see <b>"EDIT THIS POST"</b> in the top of the slideshow.
+		<br/>3) In case, you want to display posts according to a CUSTOM QUERY, then add this(for example) into your functions.php: <code> add_action('wp','my_custom_f'); function my_custom_f(){ $GLOBALS['WCSR_posts'] = get_posts( array( 'category' => 36,  'post_type'=>array('post'), 'orderby' =>'date', 'posts_per_page'=> 5, ) );}</code>
 	</div>
 </div>
 
@@ -230,33 +231,33 @@ function My_WCSR_clicker(){
 </script>
 <style>
 .wcsr_maincontainer{clear: both;}
-.wcsr_single {width:'. ($width ?  $width : "100%").';padding:0px !important;background-color: #'. ($bg ? $bg : "FFF").';height: '. ($height ? $height : "310px").';overflow:hidden;border: 9px solid #CCC;position: relative;border-radius: 4px; margin:0px;}
+.wcsr_single {width:'. ($width ?  $width : "100%").';padding:0px !important;background-color: #'. ($bg ? $bg : "FFF").';height: '. ($height ? $height : "375px").';overflow:hidden;border: 9px solid #CCC;position: relative;border-radius: 4px; margin:0px;}
 .wcsr_single ul {background:transparent !important;margin: 0 !important;border: none !important;padding: 0 !important;list-style-type: none !important;position: relative;}          
-.wcsr_single .wcsr_big_area ul {float:left;overflow: hidden;width:100%;margin: 0px !important;padding: 0px !important;height: 300px;position: relative;}
-.wcsr_single .wcsr_big_area ul li {overflow: hidden;display:none; width:100%; height: 278px !important;display:block;position:relative;top: 0px !important;left: 0px !important;float: left;margin: 0px !important;padding: 10px !important;z-index:1;border:solid 1px transparent;}
+.wcsr_single a{color:rgb(139, 139, 255); text-decoration:none;}
+.wcsr_single .wcsr_big_area ul {float:left;overflow:visible; width:100%; margin:0px !important; padding:0px !important; height:300px; position:relative;}
+.wcsr_single .wcsr_big_area ul li {max-width: 100%; overflow: visible;display:none; width:100%; height: auto;display:block;position:relative;top: 0px !important;left: 0px !important;float: left;margin:0px !important; padding:0px !important;z-index:1;border:solid 1px transparent;}
 .wcsr_single .wcsr_big_area ul li .span6 img {width: 40px;height: 40px;float: left;}
-.wcsr_single .wcsr_big_area{float:left;	width:69.5%;}
-.wcsr_single ul.wcsr_navig_window {height: 100%; oldheight:'. ($height ?  $height : "250px").';width: 29.5%; oldwidth:'. ($content_nav_width ?  $content_nav_width : "270px").';margin:0;padding: 0;float:right; overflow:auto;}
+.wcsr_single .wcsr_big_area ul li img.wcsr_bigimg {max-width: 100%; width:800px; height:auto; border: none !important; }
+.wcsr_single .wcsr_big_area{float:left;	width:59.5%;}
+.wcsr_single ul.wcsr_navig_window {height: 100%; oldheight:'. ($height ?  $height : "250px").';width: 40%; oldwidth:'. ($content_nav_width ?  $content_nav_width : "270px").';margin:0;padding: 0;float:right; overflow:auto; z-index: 5; }
 .wcsr_maincontainer .slideme {font-size: 9px;float: right;}
 .wcsr_maincontainer .slideme a {font-size: 8px;text-decoration: none;color: #CCC;}
-.wcsr_single .wcsr_navig_window li {background-color: #'. ($content_nav_bg ? $content_nav_bg : "EEE").'; display:block;margin:0; padding: 2px 2px 2px 2px; list-style-type:none;display:block; height:73px;  width:100%; oldwidth:'. ($content_nav_width ?  $content_nav_width : "270px").'; display:block; border: 1px solid; overflow: hidden; float: left;}
-.wcsr_single .wcsr_navig_window li a {height: 100%;oldheight:'. ($content_nav_height ?  $content_nav_height : "62px").';  width: 100%; oldwidth:'. ($content_nav_width ?  $content_nav_width : "270px").'; display:block; margin:0; padding:0px; list-style-type:none; display:block; color:#'. ($content_nav_color ?  $content_nav_color : "333").';overflow:hidden;font-size: 14px; font-weight: bold; line-height:1.3em;}
+.wcsr_single .wcsr_navig_window li {background-color: #'. ($content_nav_bg ? $content_nav_bg : "EEE").'; display:block; margin: 1px 0px; padding: 2px 2px 2px 2px; list-style-type:none;display:block; height:73px;  width:100%; oldwidth:'. ($content_nav_width ?  $content_nav_width : "270px").'; display:block; border: 1px solid; overflow: hidden; float: left;}
+.wcsr_single .wcsr_navig_window li a {cursor:default;height: 100%;oldheight:'. ($content_nav_height ?  $content_nav_height : "62px").';  width: 100%; oldwidth:'. ($content_nav_width ?  $content_nav_width : "270px").'; display:block; margin:0; padding:0px; list-style-type:none; display:block; color:#'. ($content_nav_color ?  $content_nav_color : "333").';overflow:hidden;font-size: 14px; font-weight: bold; line-height:1.3em;}
 .wcsr_single .wcsr_navig_window li.on a {background-color: #'. ($nav_bg_active_color ?  $nav_bg_active_color : "CCC").';color:#fff;}
 .wcsr_single .wcsr_navig_window li a:hover,.wcsr_single .wcsr_navig_window li a:active {color:#'. ($nav_color ?  $nav_color : "FFF").';background-color: #'. ($nav_bg_active_color ?  $nav_bg_active_color : "CCC").';}
 .'."Slide_content_ID_".$GLOBALS["post"]->ID.' {font-size: 10px;float: right;clear: both;position: relative;top: -2px;background-color: #CCC;padding: 3px 3px;line-height: 10px !important;}
 .wcsr_single .wcsr_navig_window li .wcsr_contnt {height: 86px; float: none;font-size: 12px;font-weight: normal;padding-top: 1px;}
 .wcsr_single .wcsr_dclass1{width: 300px; height: 100px; margin-top: 40px;}
 .wcsr_single a.wcsr_bigimg_a{float: left; margin-left: 20px;   margin-bottom: 4px;}
-.wcsr_single h1.wcsr_bigimg_h1{font-size:25px; margin-top: 1px;}
+.wcsr_single h1.wcsr_bigimg_h1{font-size:25px; color:white; margin: 5px 0 0 0;}
 .wcsr_single p.wcsr_bigimg_p{ margin-top: 2px;}
 .wcsr_single span.wcsr_span6{width: 40px; height: 40px; float: left; margin-top: 2px;}
-.wcsr_single a {color:blue; text-decoration:none;}
-.wcsr_single .wcsr_div2class{ margin-left: 10px; height: 100%;  overflow-y: hidden; xxoverflow: hidden;}
+.wcsr_single .wcsr_div2class{ padding:0 0 0 7px; margin-left: 10px; height: 100%;  overflow-y: hidden; xxoverflow: hidden;}
 .wcsr_single .wcsr_thumgImgContainer{ margin: 0px ;height: 70px; float: left;  max-width:70px; width: 50%;}
 .wcsr_single img.wcsr_thumbimage{width:100%;height:100%;}
-.wcsr_single .wcsr_bigimg_contents{position: relative; height:300px; margin: 0 2% 0 0; float: left;width: 49%;} 
-.wcsr_single .wcsr_bigimg_container {float:left; width:49%; max-width:300px; oldwidth:'. ($img_width ?  $img_width : "300px").'; height: 100%; oldheight:'. ($height ?  $height : "300px").';}
-.wcsr_single .wcsr_big_area ul li img.wcsr_bigimg {max-width: 100%; height:100%; border: none !important; }
+.wcsr_single .wcsr_bigimg_contents{position: absolute;background-color: rgba(5, 5, 5, 0.5); height:auto; margin: 220px 0 0 0; width:100%;            -webkit-box-shadow: inset 0px -37px 29px -9px rgba(0,0,0,0.96); -moz-box-shadow: inset 0px -37px 29px -9px rgba(0,0,0,0.96);box-shadow: inset 0px -37px 29px -9px rgba(0,0,0,0.96);}
+.wcsr_single .wcsr_bigimg_container {float:left; width:100%; max-width:none; oldwidth:'. ($img_width ?  $img_width : "300px").'; height: 100%; oldheight:'. ($height ?  $height : "300px").';}
 .wcsr_single .wcsr_adminEdit{position: absolute; left:0px;top:0px;   z-index: 44; background-color:#D3F5CB; cursor:pointer;border-radius: 5px;padding: 1px;}
 .wcsr_empty{background-color:red;padding:10px;} 
 </style>
@@ -298,8 +299,7 @@ jQuery(document).ready(function($) {  $slideshow'.$GLOBALS['wcsr_tempid'].'.init
 	}
 	$sort =get_option('wcsr_content_sort'); if(empty($sort)){$sort = "post_date";}
 	$order =get_option('wcsr_content_order'); if(empty($order)){$order = "DESC";}
-	$args = array( 'meta_key'=>'wcsr_slider', 'meta_value'=>'1', 'post_type'=>$post_types, 'suppress_filters' => 0, 'orderby' => $sort, 'order' => $order);
-	$myposts = get_posts( $args );
+	$myposts = ( $GLOBALS['WCSR_posts']  ?  $GLOBALS['WCSR_posts']  :   get_posts( array( 'meta_key'=>'wcsr_slider', 'meta_value'=>'1', 'post_type'=>$post_types, 'suppress_filters' => 0, 'orderby' => $sort, 'order' => $order) )   );
 	if (empty($myposts)) {return '<div class="wcsr_empty">WP CONTENT SLIDESHOW REVISITED: NO POSTS INCLUDED!!!!!!!!!!!!!</div>'; return;}
 	foreach( $myposts as $post ) { 
 		$allPosts[$post->ID]['ID']= $post->ID;
@@ -309,7 +309,7 @@ jQuery(document).ready(function($) {  $slideshow'.$GLOBALS['wcsr_tempid'].'.init
 		$allPosts[$post->ID]['excerptt']= $post->post_content;
 		$allPosts[$post->ID]['authoridd']= $post->post_author;	
 		$allPosts[$post->ID]['adminEditUrl'] = !(current_user_can('edit_post')) ? '' : 
-			'<span onclick="window.open(\''.get_edit_post_link($post->ID).'\',\'_blank\');" class="wcsr_adminEdit">You can edit this post</span>';
+			'<span onclick="window.open(\''.get_edit_post_link($post->ID).'\',\'_blank\');" class="wcsr_adminEdit">You can edit this post <span style="font-size:0.8em;">(ID_'.$post->ID.')</span></span>';
 			//this bugs with jquery: 'a href="'.get_edit_post_link($post->ID).'" target="_blank" class="wcsr_adminEdit">You can edit this post</a>';  //admin_url('post.php?post='.$post->ID.'&action=edit';
 		$thumbnail_id = get_post_thumbnail_id($post->ID);
 		if (!empty($thumbnail_id)){	$allPosts[$post->ID]['thumbb']= wp_get_attachment_image_src( $thumbnail_id, 'thumbnail' )[0]; } //fullsize gets streched, not good !!
