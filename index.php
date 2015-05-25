@@ -140,6 +140,8 @@ function my_submenu_page_callback(){ ?>
 			<tr><td><b>posttype</b></td><td> specify one or several(comma delimited) post types, and that shortcode will get ALL FEATURED MARKED POSTS from them</td></tr>
 			<tr><td><b>thumb_descriptions</b></td><td><b>yes</b>(default) or <b>no</b> (Show descriptions under thumbnail titles)</td></tr>
 			<tr><td><b>thumb_title_trim</b></td><td><b>0</b>(default) or <b>30</b>(or XX) (If inserted any number instead of 0, then the thumbnail titles will be trimmed to that chars)</td></tr>
+			<tr><td><b>image_qaulity</b></td><td><b>thumbnail</b>(default), <b>medium</b>, <b>large</b>, <b>full</b>   (thumbnail is easily streched, so, although its bad quality, it well fits the area)</td></tr>
+			<tr><td><b>auto_detect_image</b></td><td><b>yes</b>(default) or <b>no</b> (whenever the FEATURED IMAGE is not set, should the plugin automatically search for images inside post content, and set it as Slide image?)</td></tr>
 			<tr><td><b>content_order</b></td><td><b>ASC</b> or <b>DESC</b> </td></tr>
 			<tr><td><b>content_sort</b></td><td><b>post_date</b> OR <b>title</b> OR rand </td></tr>
 		</table>
@@ -184,6 +186,10 @@ function insert_content__WCSR($atts, $content = null) {
 	$DescrEnabled =  (  ('no'==$atts['thumb_descriptions']) ?  false:true );
 	//[ContentSlideshowRevisited thumb_title_trim='0']
 	$TrimEnabled =  (  ('0'==$atts['thumb_title_trim']) ?  false: $atts['thumb_title_trim'] );
+	//[ContentSlideshowRevisited image_qaulity='thumbnail']
+	$ImgQuality =  (  (!$atts['image_qaulity']) ?  'thumbnail' : $atts['image_qaulity'] );
+	//[ContentSlideshowRevisited auto_detect_image='yes']
+	$AutoDetectImg =  (  (!$atts['auto_detect_image']) ?  'yes' : $atts['auto_detect_image'] );
 	
 	
 			//=====================get user-defined options===========================
@@ -311,9 +317,18 @@ jQuery(document).ready(function($) {  $slideshow'.$GLOBALS['wcsr_tempid'].'.init
 		$allPosts[$post->ID]['adminEditUrl'] = !(current_user_can('edit_post')) ? '' : 
 			'<span onclick="window.open(\''.get_edit_post_link($post->ID).'\',\'_blank\');" class="wcsr_adminEdit">You can edit this post <span style="font-size:0.8em;">(ID_'.$post->ID.')</span></span>';
 			//this bugs with jquery: 'a href="'.get_edit_post_link($post->ID).'" target="_blank" class="wcsr_adminEdit">You can edit this post</a>';  //admin_url('post.php?post='.$post->ID.'&action=edit';
-		$thumbnail_id = get_post_thumbnail_id($post->ID);
-		if (!empty($thumbnail_id)){	$allPosts[$post->ID]['thumbb']= wp_get_attachment_image_src( $thumbnail_id, 'thumbnail' )[0]; } //fullsize gets streched, not good !!
-		else{$allPosts[$post->ID]['thumbb']= 'http://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Coats_of_arms_of_None.svg/41px-Coats_of_arms_of_None.svg.png';}	
+		$thumbnail_id = get_post_thumbnail_id($post->ID); 
+		if (!empty($thumbnail_id)){	$allPosts[$post->ID]['thumbb']= wp_get_attachment_image_src( $thumbnail_id, $ImgQuality )[0]; } //fullsize gets streched, not good !!
+		
+		if(empty($allPosts[$post->ID]['thumbb'])) {
+			if ($AutoDetectImg){
+				preg_match_all('/\<img(.*?)src\=[\'\"](.*?)[\'\"]/si', $post->post_content, $matches);
+				if ($matches[2][0]){$allPosts[$post->ID]['thumbb'] = $matches[2][0];}
+			}
+		}
+		if(empty($allPosts[$post->ID]['thumbb'])) {
+			$allPosts[$post->ID]['thumbb']= 'http://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Coats_of_arms_of_None.svg/41px-Coats_of_arms_of_None.svg.png';
+		}
 		//$allPosts[$post->ID]['authorlinkk']= the_author_posts_link($post->ID);
 		//$allPosts[$post->ID]['authoravatarr']= get_avatar( get_the_author_meta('user_email', $post->post_author ), apply_filters('twentytwelve_author_bio_avatar_size', 62 ) );
 	}
