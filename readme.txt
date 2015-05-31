@@ -4,7 +4,7 @@ Donate link: ##https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button
 Tags: slideshow, wp, content, posts slideshow,featured post content, page, gallery,
 Requires at least: 3.8
 Tested up to: 4.22
-Stable tag: 1.21
+Stable tag: 1.22
 
 This is updated version of WP Content Slideshow REBORN. This shows posts slideshow, with thumbnails and descriptions. 
 

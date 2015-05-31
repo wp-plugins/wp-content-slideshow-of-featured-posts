@@ -3,7 +3,7 @@
 Plugin Name: WP Content Slideshow REVISITED (featured post)
 Plugin URI: http://www.uziiuzair.net
 Description: A modified version of <a href="http://wordpress.org/plugins/wp-content-slideshow-reborn/">WP Content Slideshow Reborn</a>. This shows posts slideshow, with thumbnails and descriptions. 
-Version: 1.21
+Version: 1.22
 Author: Selnomeria, Uzair Hayat (@uziiuzair), IWEBIX
 Author URI: ###
 */ if ( ! defined( 'ABSPATH' ) ) exit; //Exit if accessed directly
@@ -11,13 +11,23 @@ Author URI: ###
 //REDIRECT SETTINGS PAGE (after activation)
 add_action( 'activated_plugin', 'activat_redirect__WCSR' ); function activat_redirect__WCSR( $plugin ) { if( $plugin == plugin_basename( __FILE__ ) ) { exit( wp_redirect( admin_url( 'admin.php?page=my-wcrs-pageslug' ) ) ); } }
 
+//ACTIVATION HOOK
+register_activation_hook( __FILE__, 'activation__WCSR' );function activation__WCSR() { 	global $wpdb;
+	if (!get_option('wcsr_HiddenFromHome')) {
+		update_option('wcsr_HiddenFromHome', array('__start1') );
+	}
+}
 
 //add checkbox in POSTS/PAGES edit page.
 add_action("add_meta_boxes", "content_init__WCSR");function content_init__WCSR(){
 	foreach (get_post_types() as $each){
 		add_meta_box("wcsr_slider", "WP Content Slideshow (REVISITED)", "content_meta__WCSR", $each, "side", "low");
-	}} 	function content_meta__WCSR(){	global $post;	$custom = get_post_custom($post->ID); $wcsr_slider = $custom["wcsr_slider"][0];	?>
-		<div style="color:orange;font-weight:bold;">Feature in WP Content Slideshow? <input style="margin:0 0 0 25px;" type="checkbox" name="wcsr_slider" value="1" <?php if($wcsr_slider == 1) { echo "checked='checked'";} ?> /></div>
+	}
+} 	function content_meta__WCSR(){	global $post;	$custom = get_post_custom($post->ID); $wcsr_slider = $custom["wcsr_slider"][0];	?>
+		<div style="color:orange;font-weight:bold;">
+		Feature in WP Content Slideshow?:<input type="hidden" name="wcsr_slider" value="0" /> <input style="margin:0 0 0 2px;" type="checkbox" name="wcsr_slider" value="1" <?php if($wcsr_slider == 1) { echo "checked='checked'";} ?> />
+		<br/>Hide this post in HOME PAGE posts query?:<input type="hidden" name="wcsr_postNoShow" value="0" /> <input style="margin:0 0 0 25px;" type="checkbox" name="wcsr_postNoShow" value="1" <?php if( in_array($post->ID, get_option("wcsr_HiddenFromHome"))) { echo "checked='checked'";} ?> />
+		</div>
 	<?php
 	}
 	//save checked
@@ -27,9 +37,28 @@ add_action("add_meta_boxes", "content_init__WCSR");function content_init__WCSR()
 		if (isset($_POST['wcsr_slider'])){
 			if (in_array($post->post_type,  get_post_types())) { 
 				update_post_meta($post->ID, "wcsr_slider", $_POST["wcsr_slider"]);
+				$ar= get_option("wcsr_HiddenFromHome"); 
+				if ($_POST['wcsr_postNoShow']==0){	update_option("wcsr_HiddenFromHome", array_diff($ar, [$post_id])  ); }
+				if ($_POST['wcsr_postNoShow']==1){	if(!in_array($post_id,$ar)) {$ar[]=$post_id;  update_option("wcsr_HiddenFromHome", $ar); }}
 			}
 		}
 	}
+add_action( 'pre_get_posts', 'querymodify__WCSR',77); 
+function querymodify__WCSR($query) { $q=$query;
+	if( $q->is_main_query() && !is_admin() ) {
+		if($q->is_home){
+			//$q->init();			$q->set('post_type',LNG);     $q->set('category__not_in', 64);
+			//var_dump($q);
+			
+			$excluded_posts = get_option("wcsr_HiddenFromHome");
+			$query->set('post__not_in', $excluded_posts);
+		}
+	}
+	return $q;
+}
+
+
+
 
 
 //Check for Post Thumbnail Support
@@ -315,7 +344,7 @@ jQuery(document).ready(function($) {  $slideshow'.$GLOBALS['wcsr_tempid'].'.init
 		$allPosts[$post->ID]['excerptt']= $post->post_content;
 		$allPosts[$post->ID]['authoridd']= $post->post_author;	
 		$allPosts[$post->ID]['adminEditUrl'] = !(current_user_can('edit_post')) ? '' : 
-			'<span onclick="window.open(\''.get_edit_post_link($post->ID).'\',\'_blank\');" class="wcsr_adminEdit">You can edit this post <span style="font-size:0.8em;">(ID_'.$post->ID.')</span></span>';
+			'<span onclick="if(event.preventDefault) event.preventDefault(); else event.returnValue = false;  window.open(\''.get_edit_post_link($post->ID).'\',\'_blank\');void(0);" class="wcsr_adminEdit">You can edit this post <span style="font-size:0.8em;">(ID_'.$post->ID.')</span></span>';
 			//this bugs with jquery: 'a href="'.get_edit_post_link($post->ID).'" target="_blank" class="wcsr_adminEdit">You can edit this post</a>';  //admin_url('post.php?post='.$post->ID.'&action=edit';
 		$thumbnail_id = get_post_thumbnail_id($post->ID); 
 		if (!empty($thumbnail_id)){	$allPosts[$post->ID]['thumbb']= wp_get_attachment_image_src( $thumbnail_id, $ImgQuality )[0]; } //fullsize gets streched, not good !!
