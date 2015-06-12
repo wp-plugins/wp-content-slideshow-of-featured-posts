@@ -24,7 +24,8 @@ See the screenshots page. Plugin is somehow functioning still. You can use short
 
 == Screenshots ==
 
-1. Frontend + Backend view.
+1. Frontend view (type1).
+3. Frontend view (type2).
 
 
 == Changelog ==
