@@ -221,10 +221,10 @@ function my_submenu_page_callback(){ ?>
 add_shortcode("ContentSlideshowRevisited", "insert_content__WCSR");
 function insert_content__WCSR($atts, $content = null) {  $GLOBALS['CHOSENTYPE__WSCR_1'] = false;   $GLOBALS['CHOSENTYPE__WSCR_2'] = false; 
 	//[ContentSlideshowRevisited slider_type='1']
-	$SliderType=  (  (!$atts['slider_type']) ?  '1' : $atts['slider_type'] );
+	$atts['slider_type'] =  (  (!$atts['slider_type']) ?  '1' : $atts['slider_type'] );
 	
-	if ($SliderType=="1")		{$GLOBALS['CHOSENTYPE__WSCR_1']=true; define('CHOSENTYPE__WSCR_1',true); return slidertype__WCSR($atts,$content);}
-	elseif ($SliderType=="2")	{$GLOBALS['CHOSENTYPE__WSCR_2']=true; define('CHOSENTYPE__WSCR_2',true); return slidertype__WCSR($atts,$content);}
+	if 		($atts['slider_type']=="1")	{ $GLOBALS['CHOSENTYPE__WSCR_1']=true; define('CHOSENTYPE__WSCR_1',true); return slidertype__WCSR($atts,$content); }
+	elseif	($atts['slider_type']=="2")	{ $GLOBALS['CHOSENTYPE__WSCR_2']=true; define('CHOSENTYPE__WSCR_2',true); return slidertype__WCSR($atts,$content); }
 	else {exit("WSCR_error222:  incorrect_ SLIDER_ type is chosen..");}
 }
 
@@ -232,7 +232,7 @@ function insert_content__WCSR($atts, $content = null) {  $GLOBALS['CHOSENTYPE__W
 
 
 
-												
+
 function slidertype__WCSR($atts,$content){  $out= '';
 	//create temporary ID
 	$GLOBALS['wcsr_tempid'] = $GLOBALS['wcsr_tempid'] ? $GLOBALS['wcsr_tempid'] +1 : 1;
@@ -267,7 +267,7 @@ function slidertype__WCSR($atts,$content){  $out= '';
 	//====== GET POSTS ======//
 	$sort =get_option('wcsr_content_sort'); if(empty($sort)){$sort = "post_date";}
 	$order =get_option('wcsr_content_order'); if(empty($order)){$order = "DESC";}
-	$myposts = ( $GLOBALS['WCSR_posts']  ?  $GLOBALS['WCSR_posts']  :   get_posts( array( 'meta_key'=>'wcsr_slider_1', 'meta_value'=>'1', 'post_type'=>$post_types, 'suppress_filters' => 0, 'orderby' => $sort, 'order' => $order) )   );
+	$myposts = ( $GLOBALS['WCSR_posts']  ?  $GLOBALS['WCSR_posts']  :   get_posts( array( 'meta_key'=>'wcsr_slider_'.$atts['slider_type'], 'meta_value'=>'1', 'post_type'=>$post_types, 'suppress_filters' => 0, 'orderby' => $sort, 'order' => $order) )   );
 	if (empty($myposts)) {return '<div class="wcsr_empty">WP CONTENT SLIDESHOW REVISITED: NO POSTS INCLUDED!!!!!!!!!!!!!</div>'; return;}
 	foreach( $myposts as $post ) { 
 		$allPosts[$post->ID]['ID']= $post->ID;
@@ -407,7 +407,7 @@ function slidertype__WCSR($atts,$content){  $out= '';
 			 '.wcsr_maincontainer .bx-wrapper .bx-pager.bx-default-pager a {	background: #89908A none repeat scroll 0% 0%;text-indent: -9999px;	display: block;	width: 10px;height: 10px;margin: 0px 5px;	outline: 0px none;	border-radius: 5px;	}'.
 			'</style>    <style type="text/css">'.
 			'.wcsr_maincontainer .wcsr_adminEdit{position: absolute; left:0px;top:0px;   z-index: 44; background-color:#D3F5CB; cursor:pointer;border-radius: 5px;padding: 1px;}'.
-			'.wcsr_maincontainer .advps-slide-container{  max-width: 700px; background-color:white; position:relative; margin: 0 auto;}'.
+			'.wcsr_maincontainer .advps-slide-container{  max-width: 700px; background-color:white; position:relative; margin: 0 auto; border: 2px solid;}'.
 			'.wcsr_maincontainer .advps-slide-container ul {margin:0;padding:0; }'.
 			'.wcsr_maincontainer .advps-excerpt-one{position:absolute;	 	-moz-opacity:1;filter:alpha(opacity=100);opacity:1;z-index:1; }'.
 			'.wcsr_maincontainer .advps-overlay-one {width:100%;height:100%;position: absolute;top: 0;left: 0;z-index: 0; }'.
