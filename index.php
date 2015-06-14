@@ -373,8 +373,10 @@ function slidertype__WCSR($atts,$content){  $out= '';
 		if (!defined('WCSR_P2_ALREADY_CALLED')) {	
 			$out .= '
 			<style type="text/css">	/************************************** bx slider css *********************************************/   	/** RESET AND LAYOUT */'.
-			 '.wcsr_maincontainer .bx-wrapper {position: relative;margin: 0 auto 60px;padding: 0;*zoom: 1; }'.
+			 '.wcsr_maincontainer .bx-wrapper { height: 100%; position: relative;margin: 0 auto 60px;padding: 0;*zoom: 1; }'.
 			 '.wcsr_maincontainer .bx-wrapper img {max-width: 100%;display: block; }'.
+			 '.wcsr_maincontainer .bx-viewport_mn{width: 100%;  height: 100%; overflow:hidden; position: relative; }'.
+			 '.wcsr_maincontainer .bx-viewport{height: 100%; overflow:hidden; position: relative; border: 2px solid red; }'.
 			 '/** THEME ===================================*/'.
 			 '/* LOADER */'.
 			 '.wcsr_maincontainer .bx-wrapper .bx-loading {min-height: 50px;background: url('.PLUGIN_URL__WCSR.'/js/bxslider/images/bx_loader.gif) center center no-repeat #fff;height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 2000; }'.
@@ -408,11 +410,14 @@ function slidertype__WCSR($atts,$content){  $out= '';
 			'</style>    <style type="text/css">'.
 			'.wcsr_maincontainer .wcsr_adminEdit{position: absolute; left:0px;top:0px;   z-index: 44; background-color:#D3F5CB; cursor:pointer;border-radius: 5px;padding: 1px;}'.
 			'.wcsr_maincontainer .advps-slide-container{  max-width: 700px; background-color:white; position:relative; margin: 0 auto; border: 2px solid;}'.
+			'.main_advpslideshow{height:auto;}'.
+			'.wcsr_maincontainer .advps-slide{  position:relative; height:auto;}'.
 			'.wcsr_maincontainer .advps-slide-container ul {margin:0;padding:0; }'.
 			'.wcsr_maincontainer .advps-excerpt-one{position:absolute;	 	-moz-opacity:1;filter:alpha(opacity=100);opacity:1;z-index:1; }'.
 			'.wcsr_maincontainer .advps-overlay-one {width:100%;height:100%;position: absolute;top: 0;left: 0;z-index: 0; }'.
 			'.wcsr_maincontainer .advps-excerpt-block-one{position:relative;	 	padding:10px;width:auto;height:auto;z-index:9; }'.
-			'.wcsr_maincontainer .advps-slide-field-three img {float:left;margin-right:20px; }'.
+			'.wcsr_maincontainer .advps-slide-field {position:relative;height:auto;}'.
+			'.wcsr_maincontainer .advps-slide-field img {float:left; }'.
 			'.wcsr_maincontainer .advs-title a{font-weight:bold;text-decoration:none; }'.
 			'/* ---------------------  navigation -----------------*/'. 
 			'.wcsr_maincontainer .advps-number{position:absolute;font-size:11px;font-family:Arial, Helvetica, sans-serif;z-index:9999; }'.
@@ -427,6 +432,10 @@ function slidertype__WCSR($atts,$content){  $out= '';
 			'.wcsr_maincontainer .advps-bullet li a:hover{background:url(images/advps-bullet-active-two.png) no-repeat;cursor:pointer; }'.
 			'.wcsr_maincontainer .advps-bullet li.activeSlide a{  background:url(images/advps-bullet-active-two.png) no-repeat; }'.
 			'.wcsr_maincontainer .advps-slide-container .advs-title {line-height:30px; }'. 
+			'.wcsr_maincontainer .advps-slide-container .advps-ablock {float:left;max-width: 48%;  height:auto;  }'. 
+			'.wcsr_maincontainer .advps-slide-container .advps-contnt {float:left;max-width: 48%;  margin: 0 0 0 1.5%;}'.
+			'.wcsr_maincontainer .advps-slide-container a.advps-sla {float:left;overflow:hidden;border:2px solid; margin:5px; }'.
+			'.wcsr_maincontainer .advps-slide-container .after_each_sl {clear:both;}'.
 			'</style>';
 			define('WCSR_P2_ALREADY_CALLED', true);
 		}
@@ -436,17 +445,17 @@ function slidertype__WCSR($atts,$content){  $out= '';
 
 		$out .= '
 		<div id="advps_container3" class="advps-slide-container Fid1_'.$GLOBALS['wcsr_tempid'].'" style="">
-			<div style="width: 100%; overflow: hidden; position: relative; " class="bx-viewport">
-				<div id="advpsslideshow_3">';	$counting = 1;	foreach ($allPosts as $post){	$out .= ' 
-					<div class="advps-slide">'.$post['adminEditUrl'].'
-						<div class="advps-slide-field-three" >
-							<a target="_blank" href="'.$post['permalinkk'].'/"> 
-								<img src="'.$post['thumbb'].'" class="attachment-medium wp-post-image" alt="slide-4" height="199" width="300">
-							</a> 
-							<div>
+			<div class="bx-viewport_mn">
+				<div id="advpsslideshow_3" class="main_advpslideshow">';	$counting = 1;	foreach ($allPosts as $post){	$out .= ' 
+					<div class="advps-slide  sf'.$counting.'">'.$post['adminEditUrl'].'
+						<div class="advps-slide-field" >
+							<div class="advps-ablock">
+								<a class="advps-sla" target="_blank" href="'.$post['permalinkk'].'/"> 	<img src="'.$post['thumbb'].'" class="attachment-medium wp-post-image" alt="slide-4" height="199" width="300"> </a>
+							</div>
+							<div class="advps-contnt">
 								<h2 class="advs-title"><a target="_blank" href="'.$post['permalinkk'].'" >'.$post['titlee'].'</a></h2>
 								<p>'. cut__WCSR( $post['excerptt'], 450, "...").'</p>
-							</div>
+							</div> <div class="after_each_sl"></div>
 						</div>
 					</div>';	$counting = $counting + 1; 
 																							} $out .= '
