@@ -270,13 +270,13 @@ function slidertype__WCSR($atts,$content){  $out= '';
 	$myposts = ( $GLOBALS['WCSR_posts']  ?  $GLOBALS['WCSR_posts']  :   get_posts( array( 'meta_key'=>'wcsr_slider_'.$atts['slider_type'], 'meta_value'=>'1', 'post_type'=>$post_types, 'suppress_filters' => 0, 'orderby' => $sort, 'order' => $order) )   );
 	if (empty($myposts)) {return '<div class="wcsr_empty">WP CONTENT SLIDESHOW REVISITED: NO POSTS INCLUDED!!!!!!!!!!!!!</div>'; return;}
 	foreach( $myposts as $post ) { 
-		$allPosts[$post->ID]['ID']= $post->ID;
-		$allPosts[$post->ID]['permalinkk']= get_the_permalink($post->ID);
-		$allPosts[$post->ID]['titlee']=  $post->post_title;
-		$allPosts[$post->ID]['miniTitle']= cut__WCSR($post->post_title,  30 , "..."); //preg_replace('/(\s*)([^\s]*)(.*)/', '$2', $post->post_title);
-		$allPosts[$post->ID]['excerptt']= $post->post_content;
-		$allPosts[$post->ID]['authoridd']= $post->post_author;	
-		$allPosts[$post->ID]['adminEditUrl'] = !(current_user_can('edit_post')) ? '' : 
+		$allPosts[$post->ID]['ID']			= $post->ID;
+		$allPosts[$post->ID]['permalinkk']	= get_the_permalink($post->ID);
+		$allPosts[$post->ID]['titlee']		= apply_filters('WCSR__titl_filtr', 	$post->post_title);
+		$allPosts[$post->ID]['miniTitle']	= apply_filters('WCSR__minititl_filtr',	cut__WCSR($post->post_title,  30 , "...") ); //preg_replace('/(\s*)([^\s]*)(.*)/', '$2', $post->post_title);
+		$allPosts[$post->ID]['excerptt']	= apply_filters('WCSR__excerpt_filtr',	$post->post_content);
+		$allPosts[$post->ID]['authoridd']	= apply_filters('WCSR__author_filtr',	$post->post_author);	
+		$allPosts[$post->ID]['adminEditUrl']= !(current_user_can('edit_post')) ? '' : 
 			'<span onclick="if(event.preventDefault) event.preventDefault(); else event.returnValue = false;  window.open(\''.get_edit_post_link($post->ID).'\',\'_blank\');void(0);" class="wcsr_adminEdit">You can edit this post <span style="font-size:0.8em;">(ID_'.$post->ID.')</span></span>';
 			//this bugs with jquery: 'a href="'.get_edit_post_link($post->ID).'" target="_blank" class="wcsr_adminEdit">You can edit this post</a>';  //admin_url('post.php?post='.$post->ID.'&action=edit';
 		$thumbnail_id = get_post_thumbnail_id($post->ID); 
