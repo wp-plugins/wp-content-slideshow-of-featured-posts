@@ -24,12 +24,14 @@ add_action("add_meta_boxes", "content_init__WCSR");function content_init__WCSR()
 	foreach (get_post_types() as $each){
 		add_meta_box("wcsr_slider_box", "WP Content Slideshow (REVISITED)", "content_meta__WCSR", $each, "side", "low");
 	}
-} 	function content_meta__WCSR(){	global $post;	$custom = get_post_custom($post->ID);	?>
+} 	function content_meta__WCSR(){	global $post;	$custom = get_post_custom($post->ID);	
+	$arrays[] = get_option("wcsr_HiddenFromHome1");
+	?>
 		<div style="color:orange;font-weight:bold;"> 
 		<div style="">WP CONTENT SLIDESHOW:</div>
 			Display in Type1 slideshow?:<input type="hidden" name="wcsr_slider_1" value="0" /> <input style="margin:0 0 0 2px;" type="checkbox" name="wcsr_slider_1" value="1" <?php if($custom["wcsr_slider_1"][0] == 1) { echo "checked='checked'";} ?> />
 		<br/>Display in Type2 slideshow?:<input type="hidden" name="wcsr_slider_2" value="0" /> <input style="margin:0 0 0 2px;" type="checkbox" name="wcsr_slider_2" value="1" <?php if($custom["wcsr_slider_2"][0] == 1) { echo "checked='checked'";} ?> />
-		<br/>Hide this post in HOME PAGE posts query?:<input type="hidden" name="wcsr_postNoShow_1" value="0" /> <input style="margin:0 0 0 25px;" type="checkbox" name="wcsr_postNoShow_1" value="1" <?php if( in_array($post->ID, get_option("wcsr_HiddenFromHome1"))) { echo "checked='checked'";} ?> />
+		<br/>Hide this post in HOME PAGE posts query?:<input type="hidden" name="wcsr_postNoShow_1" value="0" /> <input style="margin:0 0 0 25px;" type="checkbox" name="wcsr_postNoShow_1" value="1" <?php if( in_array($post->ID, $arrays)) { echo "checked='checked'";} ?> />
 		</div>
 	<?php
 	}
@@ -62,7 +64,7 @@ function querymodify__WCSR($query) { $q=$query;
 			//var_dump($q);
 			
 			$excluded_posts = get_option("wcsr_HiddenFromHome1");
-			$query->set('post__not_in', $excluded_posts);
+			$q->set('post__not_in', $excluded_posts);
 		}
 	}
 	return $q;
